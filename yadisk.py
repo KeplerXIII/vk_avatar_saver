@@ -1,7 +1,5 @@
 from pprint import pprint
-
 import requests
-
 
 class YandexDisk:
 
@@ -33,4 +31,16 @@ class YandexDisk:
         response = requests.put(href, data=open(filename, 'rb'))
         response.raise_for_status()
         if response.status_code == 201:
+            print("Success")
+
+    def upload_url_to_disk(self, ya_disk_file_path, file_path_url):
+        upload_url = "https://cloud-api.yandex.net/v1/disk/resources/upload"
+        headers = self.get_headers()
+        params = {
+            "path": ya_disk_file_path,
+            "url": file_path_url
+        }
+        response = requests.post(upload_url, headers=headers, params=params)
+        response.raise_for_status()
+        if response.status_code == 202:
             print("Success")
