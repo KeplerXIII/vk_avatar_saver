@@ -7,7 +7,8 @@ def get_photo_dict(vk_id):
         'owner_id': vk_id,
         'access_token': user._vk_token,
         'album_id': "profile",
-        'extended': 1,
+        'photo_sizes': '1',
+        'extended': '1',
         'v': '5.131'
     }
     res = requests.get(URL, params=params)
