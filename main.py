@@ -1,6 +1,5 @@
 from datetime import datetime
 from progress.bar import Bar
-import time
 import user
 import ya_api
 import operator
@@ -37,9 +36,9 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
 
 
 if __name__ == "__main__":
-    VK_TOKEN = user._vk_token
-    YA_TOKEN = user._ya_token
-    VK_ID = user._vk_self_id
+    VK_TOKEN = user._vk_token # Для работы необходимо указать ваш токен
+    YA_TOKEN = user._ya_token # Для работы необходимо указать ваш токен
     folder = input('Введите название папки для сохранения: ')
+    VK_ID = input('Введите ID пользователя ВКонтакте: ')
 
     vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder=folder)
