@@ -17,7 +17,7 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
     ya.create_folder(folder)
     print(f'Найдено {counter} фотографий')
     quantity = int(input("Введите количество загружаемых фото: "))
-    bar = Bar('Processing', max=quantity)
+    bar = Bar('Загрузка', max=quantity)
     for item in vk_response['response']['items']:
         good_look_date = datetime.fromtimestamp(item["date"]).strftime("%Y, %d %B")
         item['sizes'].sort(key=operator.itemgetter('height'))
@@ -32,7 +32,7 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
     bar.finish()
     with open("data_file.json", "w") as f:
         json.dump(result, f)
-        print(f'Создан отчёт о загрузке - data_file.json')
+        print(f'Загрузка завершена успешно. Создан отчёт о загрузке - data_file.json')
 
 
 if __name__ == "__main__":
