@@ -13,10 +13,16 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
     vk = vk_api.Vkontakte(token=VK_TOKEN)
     ya = ya_api.YandexDisk(token=YA_TOKEN)
     vk_response = vk.get_photo_dict(VK_ID)
+    if 'error' in vk_response:
+        print(f'ID {VK_ID} отключен. Введите валидный ID.')
+        return
     counter = len(vk_response['response']['items'])
     ya.create_folder(folder)
     print(f'Найдено {counter} фотографий')
     quantity = int(input("Введите количество загружаемых фото: "))
+    if quantity == 0:
+        print(f'Загрузка отменена')
+        return
     bar = Bar('Загрузка', max=quantity)
     for item in vk_response['response']['items']:
         good_look_date = datetime.fromtimestamp(item["date"]).strftime("%Y, %d %B")
@@ -36,8 +42,9 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
 
 
 if __name__ == "__main__":
-    VK_TOKEN = user._vk_token # Для работы необходимо указать ваш токен
-    YA_TOKEN = user._ya_token # Для работы необходимо указать ваш токен
+
+    VK_TOKEN = user._vk_token  # Для работы необходимо указать ваш токен
+    YA_TOKEN = user._ya_token  # Для работы необходимо указать ваш токен
     folder = input('Введите название папки для сохранения: ')
     VK_ID = input('Введите ID пользователя ВКонтакте: ')
 

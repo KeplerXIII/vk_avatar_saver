@@ -18,3 +18,6 @@ class Vkontakte:
         res = res.json()
 
         return res
+
+    def get_status(self, vk_id):
+        url = ''
