@@ -42,8 +42,7 @@ class YandexDisk:
         }
         response = requests.post(upload_url, headers=headers, params=params)
         response.raise_for_status()
-        if response.status_code == 202:
-            print("Успешно сохранено")
+
 
     def create_folder(self, folder):
         url = "https://cloud-api.yandex.net/v1/disk/resources"
