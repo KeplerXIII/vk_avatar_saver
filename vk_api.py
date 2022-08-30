@@ -1,6 +1,4 @@
-import user
 import requests
-
 
 class Vkontakte:
     def __init__(self, token):
@@ -10,7 +8,7 @@ class Vkontakte:
         URL = 'https://api.vk.com/method/photos.get'
         params = {
             'owner_id': vk_id,
-            'access_token': user._vk_token,
+            'access_token': self.token,
             'album_id': "profile",
             'photo_sizes': '1',
             'extended': '1',
