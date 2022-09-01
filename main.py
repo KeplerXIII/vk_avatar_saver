@@ -1,5 +1,5 @@
 from datetime import datetime
-from progress.bar import Bar
+from tqdm import tqdm
 import user
 import ya_api
 import operator
@@ -23,7 +23,7 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
     if quantity == 0:
         print(f'Загрузка отменена')
         return
-    bar = Bar('Загрузка', max=quantity)
+    pbar = tqdm(total=quantity, desc='Фото загружаются', colour='green')
     for item in vk_response['response']['items']:
         good_look_date = datetime.fromtimestamp(item["date"]).strftime("%Y, %d %B")
         item['sizes'].sort(key=operator.itemgetter('height'))
@@ -32,10 +32,10 @@ def vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder):
         result.append({'file_name': f'{good_look_date} - {item["likes"]["count"]} likes.jpg',
                        'size': f'{item["sizes"][-1]["type"]}'})
         success += 1
-        bar.next()
+        pbar.update(1)
         if success >= quantity:
             break
-    bar.finish()
+    pbar.close()
     with open("data_file.json", "w") as f:
         json.dump(result, f)
         print(f'Загрузка завершена успешно. Создан отчёт о загрузке - data_file.json')
@@ -49,3 +49,5 @@ if __name__ == "__main__":
     VK_ID = input('Введите ID пользователя ВКонтакте: ')
 
     vk_yadisk_parser(VK_TOKEN, YA_TOKEN, VK_ID, folder=folder)
+
+
